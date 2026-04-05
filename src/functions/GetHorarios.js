@@ -26,7 +26,6 @@ app.http('GetHorarios', {
                 return { status: 400, body: "Faltan parámetros: usa ?idCine=X&idPelicula=Y" };
             }
 
-            // 1. Buscamos el cine por su ID (como texto, según tu captura)
             const q = query(collection(db, "cines"), where("id", "==", idCine));
             const snapshot = await getDocs(q);
 
@@ -37,9 +36,6 @@ app.http('GetHorarios', {
             const datosCine = snapshot.docs[0].data();
             const listaPeliculas = datosCine.peliculas || [];
 
-            // 2. Buscamos la película dentro del array del cine (por título o ID interno)
-            // Usaremos el título o posición si tuvieras un ID ahí, 
-            // pero basándonos en tu captura, buscaremos por el índice o título.
             const peliculaEncontrada = listaPeliculas.find(p => p.id == idPelicula || p.Titulo.includes(idPelicula));
 
             if (!peliculaEncontrada) {
