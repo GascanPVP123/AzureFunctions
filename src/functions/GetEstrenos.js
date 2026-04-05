@@ -19,7 +19,6 @@ app.http('GetEstrenos', {
     authLevel: 'anonymous',
     handler: async (request, context) => {
         try {
-            // Filtramos directamente por el estado 2 (Estrenos)
             const q = query(collection(db, "peliculas"), where("idEstado", "==", 2));
             const snapshot = await getDocs(q);
             const estrenos = snapshot.docs.map(doc => ({ idDoc: doc.id, ...doc.data() }));
